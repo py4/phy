@@ -12,6 +12,11 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+	gem 'pry-rails'
+	gem 'quiet_assets'
+end
+
 gem 'pg'
 gem 'devise'
 gem 'thin'

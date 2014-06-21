@@ -74,20 +74,3 @@ font-size: 24px;
     box-shadow: 3px 3px 0px transparent;
     transition: 0.5s;
     }
-
-* {
-    margin: 0;
-}
-html, body {
-    height: 100%;
-}
-.wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -25px; /* the bottom margin is the negative value of the footer's height */
-}
-.footer, .push {
-    height: 25px; /* .push must be the same height as .footer */
-    text-align: center;
-}
