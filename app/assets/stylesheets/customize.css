@@ -74,3 +74,16 @@ font-size: 24px;
     box-shadow: 3px 3px 0px transparent;
     transition: 0.5s;
     }
+
+.borderless td {
+    border: none;
+}
+
+.borderless th {
+    border: none;
+}
+
+.table tbody>tr>td.vert-align
+{
+    vertical-align: middle;
+}

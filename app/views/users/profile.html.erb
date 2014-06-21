@@ -1,0 +1,5 @@
+<% if current_user.adviser? %>
+	<%= render partial: 'adviser_profile' %>
+<% else %>
+	<%= render partial: 'customer_profile' %>
+<% end %>

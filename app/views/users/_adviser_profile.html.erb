@@ -1,0 +1,17 @@
+<%= render partial: 'normal_profile_div' %>
+
+<div class="tabbable tabs-left">
+	<ul class="nav nav-tabs">
+		<li class="<%= 'active' if params[:tab] == 'tab1' %>"><a href="#tab1" data-toggle="tab">لیست متقاضیان تحت نظر</a></li>
+		<li class="<%= 'active' if params[:tab] == 'tab9' %>"> <a href="#tab9" data-toggle="tab">اضافه کردن متقاضی</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div class="<%= if (params[:tab] == 'tab1' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab1">
+			<%= render partial: 'customers_list' %>
+		</div>
+		<div class="<%= if params[:tab] == 'tab9' then 'tab-pane active'  else 'tab-pane' end%>" id="tab9">
+			'salam2'
+		</div>
+	</div>
+</div>
