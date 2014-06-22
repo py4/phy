@@ -2,8 +2,14 @@
 
 <div class="tabbable tabs-left">
 	<ul class="nav nav-tabs">
-		<li class="<%= 'active' if params[:tab] == 'tab1' %>"><a href="#tab1" data-toggle="tab">لیست متقاضیان تحت نظر</a></li>
-		<li class="<%= 'active' if params[:tab] == 'tab9' %>"> <a href="#tab9" data-toggle="tab">اضافه کردن متقاضی</a></li>
+		<% class1 = "" %>
+		<% class1 = 'active' if params[:tab] == 'tab1' %>
+		<% class2 = "" %>
+		<% class2 = 'active' if params[:tab] == 'tab9' %>
+		<% class1 = 'active' if (class1 == "" and class2 == "") %>
+
+		<li class="<%= class1 %>"><a href="#tab1" data-toggle="tab">لیست متقاضیان تحت نظر</a></li>
+		<li class="<%= class2 %>"> <a href="#tab9" data-toggle="tab">اضافه کردن متقاضی</a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -11,7 +17,7 @@
 			<%= render partial: 'customers_list' %>
 		</div>
 		<div class="<%= if params[:tab] == 'tab9' then 'tab-pane active'  else 'tab-pane' end%>" id="tab9">
-			'salam2'
+			<%= render partial: 'search' %>
 		</div>
 	</div>
 </div>

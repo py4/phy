@@ -7,45 +7,12 @@
         <th style="width:10%" class="text-center hidden-phone">پست الکترونیکی</th>
         <th style="width:15%" class="text-center hidden-phone">نام کاربری</th>
         <th style="width:10%" class="text-center hidden-phone">کد کاربری</th>
-        <th style="width:10%" class="text-center hidden-phone">عملیات</th>
+        <th style="width:15%" class="text-center hidden-phone">عملیات</th>
       </tr>
     </thead>
     <tbody>
       <% current_user.customers.each do |customer| %>
-      <tr>
-        <td class="text-center">
-          <span class="name">
-          <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="" class="col-xs-12 col-sm-8 img-circle img-responsive">
-          </span>
-        </td>
-        <td class="text-center vert-align"><%= full_name customer %></td>
-        <td class="text-center vert-align">
-          <span class="label label label-info"><%= customer.email %></span>
-        </td>
-        <td class="text-center vert-align">
-          <%= customer.username %>
-        </td>
-        <td class="text-center vert-align">
-          <span class="label label-success"><%= customer.user_code %></span>
-        </td>
-        <td class="text-center vert-align">
-          <div class="btn-group">
-            <button data-toggle="dropdown" class="btn btn-xs dropdown-toggle" data-original-title="" title="">
-              Action 
-              <span class="caret">
-              </span>
-            </button>
-            <ul class="dropdown-menu pull-right">
-              <li>
-                <a href="#">Edit</a>
-              </li>
-              <li>
-                <a href="#">Delete</a>
-              </li>
-            </ul>
-          </div>
-        </td>
-      </tr>
+        <%= render partial: 'single_customer', locals: { customer: customer } %>
       <% end %>
     </tbody>
   </table>

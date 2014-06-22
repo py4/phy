@@ -1,0 +1,34 @@
+<% if @customer %>
+<div class="table-responsive">
+	<table class="table table-condensed table-striped  table-hover no-margin borderless">
+		<thead>
+			<tr>
+				<th style="width:10%" class="text-center hidden-phone">تصویر</th>
+				<th style="width:20%" class="text-center hidden-phone">نام متقاضی</th>
+				<th style="width:10%" class="text-center hidden-phone">پست الکترونیکی</th>
+				<th style="width:15%" class="text-center hidden-phone">نام کاربری</th>
+				<th style="width:10%" class="text-center hidden-phone">کد کاربری</th>
+				<th style="width:15%" class="text-center hidden-phone">عملیات</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%= render partial: 'single_customer', locals: {customer: @customer} %>
+			<script language='text/javascript'>
+				var elements = document.getElementsByClassName("action")
+				<% unless @customer.adviser %>
+					elements[elements.length - 1].innerHTML = "<%= escape_javascript(link_to 'اضافه کنید!', add_customer_path(user_code: @customer.user_code), method: :post) %>"
+				<% else %>
+					<% unless current_user == @customer.adviser %>
+						elements[elements.length - 1].innerHTML = '<span class="label label-danger">مشاور دارد</span>'
+					<% else %>
+						elements[elements.length - 1].innerHTML = '<span class="label label-danger">مشاورش هستید!</span>'
+					<% end %>
+				<% end %>
+			</script>
+		</tbody>
+	</table>
+</div>
+
+<% else %>
+متقاضی یافت نشد!
+<% end %>

@@ -1,0 +1,21 @@
+<tr>
+  <td class="text-center">
+    <span class="name">
+      <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="" class="col-xs-12 col-sm-8 img-circle img-responsive">
+    </span>
+  </td>
+  <td class="text-center vert-align"><%= full_name customer %></td>
+  <td class="text-center vert-align">
+    <span class="label label label-info"><%= customer.email %></span>
+  </td>
+  <td class="text-center vert-align">
+    <%= customer.username %>
+  </td>
+  <td class="text-center vert-align">
+    <span class="label label-success"><%= customer.user_code %></span>
+  </td>
+  <td class="action text-center vert-align">
+  <%= link_to 'مشاهده', show_customer_path(customer) %> /
+  <%= link_to 'حذف مسئولیت', remove_advisership_path(customer), method: :delete %>
+  </td>
+</tr>
