@@ -13,15 +13,19 @@ class User < ActiveRecord::Base
   validates :user_type, presence: true
   validates_inclusion_of :user_type, :in => 0..1
 
-  has_many :customers, :class_name => 'User', :foreign_key => 'adviser_id'
+  has_many :applicants, :class_name => 'User', :foreign_key => 'adviser_id'
+  has_many :answers
+  has_many :exam_answers
+  has_many :task_statuses
   belongs_to :adviser, :class_name => 'User', :foreign_key => 'adviser_id'
 
   validate :validate_not_having_adviser
   validate :validate_adviser
 
   before_create :set_user_code
+  after_create :create_task_statuses
 
-  def customer?
+  def applicant?
   	user_type == 0
   end
 
@@ -35,10 +39,18 @@ class User < ActiveRecord::Base
 
   def validate_adviser
     puts adviser_id
-    errors.add(:base, 'Custom cannot have customers') if (customer? and adviser_id and User.find(adviser_id).customer?)
+    errors.add(:base, 'Applicant cannot have applicants') if (applicant? and adviser_id and User.find(adviser_id).applicant?)
   end
 
   def set_user_code
-    user_code = SecureRandom.uuid.split('-').last
+    self.status = 0
+    self.user_code = SecureRandom.uuid.split('-').last
+  end
+
+  def create_task_statuses
+    puts ">>>>>>>>> creating task status <<<<<<<<<<<"
+    Task.all.each do |task|
+      task.task_statuses.create! value: false, user_id: self.id
+    end
   end
 end

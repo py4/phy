@@ -1,4 +1,4 @@
-<% if @customer %>
+<% if @applicant %>
 <div class="table-responsive">
 	<table class="table table-condensed table-striped  table-hover no-margin borderless">
 		<thead>
@@ -12,13 +12,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%= render partial: 'single_customer', locals: {customer: @customer} %>
+			<%= render partial: 'single_applicant', locals: {applicant: @applicant} %>
 			<script language='text/javascript'>
 				var elements = document.getElementsByClassName("action")
-				<% unless @customer.adviser %>
-					elements[elements.length - 1].innerHTML = "<%= escape_javascript(link_to 'اضافه کنید!', add_customer_path(user_code: @customer.user_code), method: :post) %>"
+				<% unless @applicant.adviser %>
+					elements[elements.length - 1].innerHTML = "<%= escape_javascript(link_to 'اضافه کنید!', add_applicant_path(user_code: @applicant.user_code), method: :post) %>"
 				<% else %>
-					<% unless current_user == @customer.adviser %>
+					<% unless current_user == @applicant.adviser %>
 						elements[elements.length - 1].innerHTML = '<span class="label label-danger">مشاور دارد</span>'
 					<% else %>
 						elements[elements.length - 1].innerHTML = '<span class="label label-danger">مشاورش هستید!</span>'

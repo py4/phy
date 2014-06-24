@@ -1,0 +1,21 @@
+<tr>
+  <td class="text-center">
+    <span class="name">
+      <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="" class="col-xs-12 col-sm-8 img-circle img-responsive">
+    </span>
+  </td>
+  <td class="text-center vert-align"><%= full_name applicant %></td>
+  <td class="text-center vert-align">
+    <span class="label label label-info"><%= applicant.email %></span>
+  </td>
+  <td class="text-center vert-align">
+    <%= applicant.username %>
+  </td>
+  <td class="text-center vert-align">
+    <span class="label label-success"><%= applicant.user_code %></span>
+  </td>
+  <td class="action text-center vert-align">
+  <%= link_to 'مشاهده', show_applicant_path(applicant) %> /
+  <%= link_to 'حذف مسئولیت', remove_advisership_path(applicant), method: :delete %>
+  </td>
+</tr>

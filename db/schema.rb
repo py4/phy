@@ -11,10 +11,73 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140621210958) do
+ActiveRecord::Schema.define(version: 20140624215810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: true do |t|
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "choice_index"
+  end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
+  add_index "answers", ["user_id"], name: "index_answers_on_user_id", using: :btree
+
+  create_table "choices", force: true do |t|
+    t.integer  "exam_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "content"
+  end
+
+  add_index "choices", ["exam_id"], name: "index_choices_on_exam_id", using: :btree
+
+  create_table "exam_answers", force: true do |t|
+    t.integer  "exam_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "status",     default: false
+  end
+
+  add_index "exam_answers", ["exam_id"], name: "index_exam_answers_on_exam_id", using: :btree
+  add_index "exam_answers", ["user_id"], name: "index_exam_answers_on_user_id", using: :btree
+
+  create_table "exams", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "questions", force: true do |t|
+    t.integer  "exam_id"
+    t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "questions", ["exam_id"], name: "index_questions_on_exam_id", using: :btree
+
+  create_table "task_statuses", force: true do |t|
+    t.integer  "task_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "value"
+  end
+
+  add_index "task_statuses", ["task_id"], name: "index_task_statuses_on_task_id", using: :btree
+  add_index "task_statuses", ["user_id"], name: "index_task_statuses_on_user_id", using: :btree
+
+  create_table "tasks", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -36,6 +99,7 @@ ActiveRecord::Schema.define(version: 20140621210958) do
     t.string   "username"
     t.integer  "adviser_id"
     t.string   "user_code"
+    t.integer  "status"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -1,0 +1,25 @@
+<div class="well well-sm">
+  <div class="media">
+    <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="" class="col-xs-12 col-sm-4 center-block img-circle img-responsive">
+    <div class="media-body">
+      <h4 class="media-heading"><%= full_name applicant %></h4>
+      <p><span class="label label-primary"><%= role_label applicant %> </span></p>
+      <p>
+        کد کاربری
+        <span class="label label-success"><%= applicant.user_code %> </span>
+      </p>
+      <p>
+        نام کاربری
+        <strong><%= applicant.username %> </strong>
+      </p>
+      <p>
+        پست الکترونیکی
+        <strong><%= applicant.email %> </strong>
+      </p>
+      <p>
+        سن
+        <strong><%= applicant.age %> </strong>
+      </p>
+    </div>
+  </div>
+</div>

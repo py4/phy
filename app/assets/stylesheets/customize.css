@@ -87,3 +87,7 @@ font-size: 24px;
 {
     vertical-align: middle;
 }
+
+.form-control {
+    height: 40px;
+}

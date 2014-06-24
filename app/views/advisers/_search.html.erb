@@ -1,4 +1,4 @@
-<form class="form-horizontal" id="live-search-form" method="get" action="<%= search_customer_path %>">
+<form class="form-horizontal" id="live-search-form" method="get" action="<%= search_applicant_path %>">
     <div class="form-group">
       <label for="inputType" class="col-md-2 control-label">کد متقاضی</label>
       <div class="col-md-3">
@@ -14,7 +14,7 @@
   $("#big-search-box").addClass("loading"); // show the spinner
   var form = $("#live-search-form"); // grab the form wrapping the search bar.
 
-  var url = "/search_customer"; // live_search action.   
+  var url = "/search_applicant"; // live_search action.   
   var formData = form.serialize(); // grab the data in the form   
   $.get(url, formData, function(html) { // perform an AJAX get
 

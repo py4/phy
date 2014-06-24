@@ -14,10 +14,10 @@
 
 	<div class="tab-content">
 		<div class="<%= if (params[:tab] == 'tab1' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab1">
-			<%= render partial: 'customers_list' %>
+			<%= render partial: 'advisers/applicant_list' %>
 		</div>
 		<div class="<%= if params[:tab] == 'tab9' then 'tab-pane active'  else 'tab-pane' end%>" id="tab9">
-			<%= render partial: 'search' %>
+			<%= render partial: 'advisers/search' %>
 		</div>
 	</div>
 </div>

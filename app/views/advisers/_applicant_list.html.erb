@@ -11,8 +11,8 @@
       </tr>
     </thead>
     <tbody>
-      <% current_user.customers.each do |customer| %>
-        <%= render partial: 'single_customer', locals: { customer: customer } %>
+      <% current_user.applicants.each do |applicant| %>
+        <%= render partial: 'advisers/single_applicant', locals: { applicant: applicant } %>
       <% end %>
     </tbody>
   </table>

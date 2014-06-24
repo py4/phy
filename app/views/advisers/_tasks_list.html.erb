@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <table class="table table-condensed table-striped  table-hover no-margin borderless">
+    <thead>
+      <tr>
+        <th style="width:30%" class="text-center hidden-phone">روند</th>
+        <th style="width:20%" class="text-center hidden-phone">وضعیت</th>
+        <th style="width:20%" class="text-center hidden-phone">عملیات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% applicant.task_statuses.each do |task_status| %>
+      <tr>
+        <td class="text-center"> <%= task_status.task.title %> </td>
+        <td class="text-center">
+          <% if task_status.value %>
+            <span class="label label-success"> انجام شده </span>
+          <% else %>
+            <span class="label label-danger"> انجام نشده </span>
+          <% end %>
+        </td>
+        <td class="text-center">
+          <%= link_to 'تغییر', update_task_status_path(applicant,task_status), :class => 'btn btn-info' , method: :post%>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
