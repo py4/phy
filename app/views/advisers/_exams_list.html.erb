@@ -23,7 +23,7 @@
           <%= answer.exam.name %>
         </td>
         <td class="text-center">
-          ?
+          <%= answer.score %>
         </td>
         <td class="text-center">
           <%= link_to 'حذف', delete_exam_answer_path(applicant,answer), method: :delete, class: 'btn btn-danger' %>
