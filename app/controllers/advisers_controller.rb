@@ -1,4 +1,6 @@
 class AdvisersController < ApplicationController
+	before_action :authenticate_user!
+	
 	def search_applicant
 		@applicant = User.where(user_code: params[:user_code]).first
 		render layout: false
@@ -54,7 +56,35 @@ class AdvisersController < ApplicationController
 				return redirect_to show_applicant_path(applicant), flash: { error: 'خطا.' }
 			end
 		end
-
 		return redirect_to show_applicant_path(applicant)
 	end
+
+	def create_exam_answer
+		applicant = current_user.applicants.where(id: params[:applicant_id]).first
+		return redirect_to profile_path, flash: { error: 'متقاضی یافت نشد!' } unless applicant
+		exam = Exam.where(name: params[:exam][:name]).first
+		if exam.exam_answers.where(user_id: applicant.id).first
+			return redirect_to profile_path, flash: { error: 'آزمون اضافه شده است!' }
+		end
+		exam.exam_answers.create! user_id: applicant.id
+		redirect_to show_applicant_path(applicant), flash: { success: 'آزمون با موفقیت اضافه شد' }
+	end
+
+	def delete_exam_answer
+		applicant = current_user.applicants.where(id: params[:applicant_id]).first
+		return redirect_to profile_path, flash: { error: 'متقاضی یافت نشد!' } unless applicant
+		exam_answer = applicant.exam_answers.where(id: params[:exam_answer_id]).first
+		return redirect_to profile_path, flash: { error: 'آزمون یافت نشد!' } unless exam_answer
+		exam_answer.destroy
+		redirect_to show_applicant_path(applicant), flash: { success: 'آزمون با موفقیت حذف شد' }
+	end
+
+	def update_message
+		applicant = current_user.applicants.where(id: params[:applicant_id]).first
+		return redirect_to profile_path, flash: { error: 'متقاضی یافت نشد!' } unless applicant
+		applicant.update_attributes! adviser_message: params[:message][:content]
+		redirect_to show_applicant_path(applicant), flash: { success: 'وضعیت متقاضی به روز شد.' }
+	end
+
+
 end

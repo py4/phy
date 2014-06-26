@@ -1,4 +1,5 @@
 fa:
+  default_message: 'منتظر اضافه شدن آزمون‌ها توسط مشاور باشید.'
   activerecord:
     models:
       user: "کاربر"

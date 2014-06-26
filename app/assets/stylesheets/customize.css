@@ -91,3 +91,15 @@ font-size: 24px;
 .form-control {
     height: 40px;
 }
+
+.exam {
+    margin-right: 200px;
+}
+
+.choice {
+    margin-right: 50px;
+}
+
+label {
+    margin-right: 50px;
+}

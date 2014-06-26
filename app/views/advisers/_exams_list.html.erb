@@ -1,0 +1,48 @@
+<% if applicant.exam_answers.any? %>
+<div class="table-responsive">
+  <table class="table table-condensed table-striped  table-hover no-margin borderless">
+    <thead>
+      <tr>
+        <th style="width:30%" class="text-center hidden-phone">وضعیت</th>
+        <th style="width:20%" class="text-center hidden-phone">نام آزمون</th>
+        <th style="width:20%" class="text-center hidden-phone">نتیجه</th>
+        <th style="width:20%" class="text-center hidden-phone">عملیات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% applicant.exam_answers.each do |answer| %>
+      <tr>
+        <td class="text-center">
+          <% if answer.status %>
+          <span class="label label-success"> داده </span>
+          <% else %>
+          <span class="label label-danger"> نداده </span>
+          <% end %>
+        </td>
+        <td class="text-center">
+          <%= answer.exam.name %>
+        </td>
+        <td class="text-center">
+          ?
+        </td>
+        <td class="text-center">
+          <%= link_to 'حذف', delete_exam_answer_path(applicant,answer), method: :delete, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% else %>
+در حال حاضر آزمونی ندارد.
+<% end %>
+
+<% unrolled_exams = applicant.get_unrolled_exams.map { |content| [content,content] } %>
+<% if unrolled_exams.any? %>
+<p>
+  <%= simple_form_for :exam, url: create_exam_answer_path(applicant), html: {class: 'form-horizontal', role: 'form'} do |f| %>
+  <%= f.input :name, collection: unrolled_exams, selected: (0), input_html: {class: 'form-control col-md-8'}, label: false %>
+  <%= f.button :submit, 'اضافه کن',class: 'btn btn-primary' %>
+  <% end %>
+  <% end %>
+</p>

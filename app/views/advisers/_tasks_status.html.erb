@@ -1,5 +1,5 @@
 <%= simple_form_for :status, url: update_status_path(applicant.id), html: {class: 'form-horizontal', role: 'form'} do |f| %>
 	<strong>وضعیت کلی متقاضی</strong>
 	<%= f.input :status, collection: USER_STATES.each_with_index.map { |content,i| [content,i] }, selected: (applicant.status or 0), input_html: {class: 'form-control col-md-8'}, label: false %>
-	<%= f.button :submit , 'اعمال وضعیت',class: 'btn btn-info' %>
+	<%= f.button :submit , 'اعمال وضعیت',class: 'btn btn-primary' %>
 <% end %>

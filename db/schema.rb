@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624215810) do
+ActiveRecord::Schema.define(version: 20140626222931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20140624215810) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "choice_index"
+    t.integer  "exam_answer_id"
   end
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 20140624215810) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "status",     default: false
+    t.integer  "score"
   end
 
   add_index "exam_answers", ["exam_id"], name: "index_exam_answers_on_exam_id", using: :btree
@@ -51,6 +53,7 @@ ActiveRecord::Schema.define(version: 20140624215810) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "special",    default: false
   end
 
   create_table "questions", force: true do |t|
@@ -58,6 +61,7 @@ ActiveRecord::Schema.define(version: 20140624215810) do
     t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mask"
   end
 
   add_index "questions", ["exam_id"], name: "index_questions_on_exam_id", using: :btree
@@ -100,6 +104,7 @@ ActiveRecord::Schema.define(version: 20140624215810) do
     t.integer  "adviser_id"
     t.string   "user_code"
     t.integer  "status"
+    t.string   "adviser_message"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

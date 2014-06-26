@@ -1,0 +1,25 @@
+<% if @exam_answer.status %>
+<p>
+	قبلا به این آزمون پاسخ داده‌اید!
+</p>
+<% else %>
+<%= simple_form_for :answer, url: submit_answer_path(@exam_answer), html: {class: 'form-horizontal', role: 'form'} do |f| %>
+<% choices = @exam_answer.exam.choices %>
+<div class="contrainer exam">
+	<% @exam_answer.exam.questions.each_with_index do |question,index| %>
+	<p>
+		<fieldset id="question<%=index%>">
+			<legend><%= question.content%></legend>
+			<%= f.collection_radio_buttons(
+				"#{index}" ,choices.each_with_index.map { |choice,index| [index,choice.content]}, :first, :last
+				) do |b|
+				b.label { b.radio_button + b.text}
+			end
+			%>
+		</fieldset>
+	</p>
+	<% end %>
+</div>
+<%= f.submit :button %>
+<% end %>
+<% end %>

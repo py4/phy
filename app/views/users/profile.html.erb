@@ -1,5 +1,5 @@
 <% if current_user.adviser? %>
 	<%= render partial: 'advisers/adviser_profile' %>
 <% else %>
-	<%= render partial: 'advisers/applicant_profile' %>
+	<%= render partial: 'applicants/show' %>
 <% end %>

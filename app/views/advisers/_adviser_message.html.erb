@@ -1,0 +1,18 @@
+<p>
+	وضعیت کاربر، که به صورت پیغام به او نمایش داده می‌شود.
+</p>
+<p>
+	<span class="label label-info">
+	<%= applicant.adviser_message %>
+	</span>
+</p>
+
+<p>
+	در صورت نیاز تغییر دهید:
+</p>
+<p>
+  <%= simple_form_for :message, url: update_message_path(applicant), html: {class: 'form-horizontal', role: 'form'} do |f| %>
+  <%= f.input :content, input_html: {class: 'form-control col-md-8'}, label: false %>
+  <%= f.button :submit, 'به روز کن',class: 'btn btn-primary' %>
+  <% end %>
+</p>

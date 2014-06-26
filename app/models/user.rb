@@ -14,9 +14,9 @@ class User < ActiveRecord::Base
   validates_inclusion_of :user_type, :in => 0..1
 
   has_many :applicants, :class_name => 'User', :foreign_key => 'adviser_id'
-  has_many :answers
-  has_many :exam_answers
-  has_many :task_statuses
+  has_many :answers, dependent: :destroy
+  has_many :exam_answers, dependent: :destroy
+  has_many :task_statuses, dependent: :destroy
   belongs_to :adviser, :class_name => 'User', :foreign_key => 'adviser_id'
 
   validate :validate_not_having_adviser
@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   end
 
   def set_user_code
+    self.adviser_message = t(:default_message)
     self.status = 0
     self.user_code = SecureRandom.uuid.split('-').last
   end
@@ -52,5 +53,13 @@ class User < ActiveRecord::Base
     Task.all.each do |task|
       task.task_statuses.create! value: false, user_id: self.id
     end
+  end
+
+  def get_unrolled_exams
+    names = []
+    exam_answers.includes(:exam).each do |answer|
+      names << answer.exam.name
+    end
+    return Exam.pluck(:name) - names
   end
 end
