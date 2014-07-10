@@ -2,7 +2,7 @@ class AdvisersController < ApplicationController
 	before_action :authenticate_user!
 	
 	def search_applicant
-		@applicant = User.where(user_code: params[:user_code]).first
+		@applicant = User.where(user_code: params[:user_code], user_type: 0).first
 		render layout: false
 	end
 

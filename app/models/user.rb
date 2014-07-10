@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   end
 
   def set_user_code
-    self.adviser_message = t(:default_message)
+    self.adviser_message = I18n.t(:default_message)
     self.status = 0
     self.user_code = SecureRandom.uuid.split('-').last
   end
