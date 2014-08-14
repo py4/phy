@@ -1,30 +1,37 @@
 Exam.destroy_all
 Dir.foreach('config/exams') do |item|
 	next if item == '.' or item == '..'
+
 	lines = File.readlines('config/exams/'+item)
-	special = lines[2].strip
-	exam = Exam.create name: lines[0].strip, special: special
-	choice_count = lines[1].split(',').size
-	lines[1].split(',').each do |choice|
-		exam.choices.create content: choice.strip
+	exam = Exam.create! name: lines[0].strip, subject: {}
+	step = lines[1].strip.to_i
+	i = 2
+	question_index = 0
+	while i < lines.size
+		step = 3 if(question_index == 12 and item == 'phyisc')
+		question_content = lines[i]
+		question = exam.questions.create! content: question_content.strip
+		lines[i+1..i+step].each { |choice| question.choices.create content: choice.strip }
+		break if i+step+1 >= lines.size
+		s = "" ; lines[i+step+1..i+2*step].each { |char| s += char.strip }
+		question.update_attributes! mask: s
+		i += 2*step + 1
+		question_index += 1
 	end
-	index = 3
-	while index < lines.size
-		content = lines[index].strip
-		mask = ""
-		if special == "true"
-			lines[index+1..(index+choice_count)].each { |m| mask += m.strip }
-			mask += "-#{lines[index+choice_count+1].strip}-"
-			lines[index+choice_count+2..index+2*choice_count+1].each { |m| mask += m.strip }
-			index += 2*choice_count+2
-		else
-			lines[index+1..index+choice_count].each { |m| mask += m.strip }
-			index += choice_count + 1
-		end
+end
 
-		exam.questions.create content: content, mask: mask
+Dir.foreach('config/subjects') do |item|
+	next if item == '.' or item == '..'
+
+	lines = File.readlines('config/subjects/'+item)
+	exam = Exam.find_by(name: lines[0].strip)
+	subject = {}
+	lines[1..-1].each do |line|
+		words = line.split('-')
+		subject[words[0]] = words[1].split(',').map { |w| w.to_i }
 	end
-
+	exam.update_attributes subject: subject
+	puts "exam after save: #{exam.subject}"
 end
 
 Task.destroy_all

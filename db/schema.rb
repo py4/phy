@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626222931) do
+ActiveRecord::Schema.define(version: 20140812211457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "answers", force: true do |t|
     t.integer  "question_id"
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(version: 20140626222931) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "content"
+    t.integer  "question_id"
   end
 
   add_index "choices", ["exam_id"], name: "index_choices_on_exam_id", using: :btree
@@ -54,7 +56,10 @@ ActiveRecord::Schema.define(version: 20140626222931) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "special",    default: false
+    t.hstore   "subject"
   end
+
+  add_index "exams", ["subject"], name: "index_exams_on_subject", using: :gist
 
   create_table "questions", force: true do |t|
     t.integer  "exam_id"
