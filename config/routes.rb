@@ -16,4 +16,5 @@ Phy::Application.routes.draw do
 
  	get '/applicant/exams/:exam_answer_id' => 'applicants#show_exam', as: 'show_exam'
  	post '/applicant/:exam_answer_id' => 'applicants#submit_answer', as: 'submit_answer'
+ 	get '/adviser/applicants/:applicant_id/exams/:exam_answer_id' => 'advisers#detail_about_exam', as: 'detail_exam'
 end

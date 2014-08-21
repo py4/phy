@@ -99,3 +99,7 @@ font-size: 24px;
 .choice {
     margin-right: 50px;
 }
+
+fieldset label {
+    padding-left: 25px;
+}

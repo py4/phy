@@ -1,28 +1,18 @@
-<div class="table-responsive">
-  <table class="table table-condensed table-striped  table-hover no-margin borderless">
-    <thead>
-      <tr>
-        <th style="width:30%" class="text-center hidden-phone">روند</th>
-        <th style="width:20%" class="text-center hidden-phone">وضعیت</th>
-        <th style="width:20%" class="text-center hidden-phone">عملیات</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% applicant.task_statuses.order("id").each do |task_status| %>
-      <tr>
-        <td class="text-center"> <%= task_status.task.title %> </td>
-        <td class="text-center">
-          <% if task_status.value %>
-            <span class="label label-success"> انجام شده </span>
-          <% else %>
-            <span class="label label-danger"> انجام نشده </span>
-          <% end %>
-        </td>
-        <td class="text-center">
-          <%= link_to 'تغییر', update_task_status_path(applicant,task_status), :class => 'btn btn-info' , method: :post%>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<br>
+مرحله‌<b>اول</b>: اضافه کردن کد کاربری داوطلب
+<br>
+مرحله‌ی <b>دوم</b>: فعال کردن فرم اطلاعات فیزیکی
+<br>
+مرحله‌ی <b>سوم</b>: فعال کردن فرم مصاحبه
+<br>
+مرحله‌ی <b>چهار</b>: فعال کردن آزمون‌ها براساس نتیجه‌ی مصاحبه:
+<br>
+بعد از ثبت نتایج آزمون مصاحبه، نمره‌هایی در حیطه‌های مختلف برای فرد محاسبه می‌شود که با توجه به آن باید آزمون‌های مختلف را فعال کرد:
+<br><br>
+اگر نمره‌ی فرد در حیطه‌های انگیزه‌ی پیشرفت، شخصیت و حل مساله کمتر از ۳ بود باید به ترتیب آزمون‌های هرمنس، آیزنگ و هپنر فعال شوند.
+<br>
+اگر نمره‌ی فرد در حیطه‌ی هوش هیجانی کمتر از ۴ بود باید آزمون بار-آن فعال شود.
+<br>
+اگر نمره‌ی فرد در حیطه‌ی سازگاری کمتر از ۶ بود باید آزمون بل فعال شود.
+<br>
+اگر هیچ کدام از مورد بالا برقرار نبود آزمون‌ هالند برای تعیین شغل فعال شود.

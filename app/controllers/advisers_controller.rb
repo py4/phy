@@ -86,5 +86,12 @@ class AdvisersController < ApplicationController
 		redirect_to show_applicant_path(applicant), flash: { success: 'وضعیت متقاضی به روز شد.' }
 	end
 
+	def detail_about_exam
+		applicant = current_user.applicants.where(id: params[:applicant_id]).first
+		return redirect_to profile_path, flash: { error: 'متقاضی یافت نشد!' } unless applicant
+		@exam_answer = applicant.exam_answers.where(id: params[:exam_answer_id]).first
+		return redirect_to profile_path, flash: { error: 'آزمون یافت نشد!' } unless @exam_answer
+	end
+
 
 end

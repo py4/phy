@@ -1,0 +1,26 @@
+<% if @exam_answer.exam.subject.empty? %>
+	<% if @exam_answer.exam.name == 'آزمون بررسی فیزیکی' %>
+		<% @exam_answer.answers.includes(:question).each do |answer| %>
+			<h3> <%= answer.question.content %> </h3>
+			<%= answer.question.choices[answer.choice_index].content %>
+		<% end %>
+	<% else %>
+	<% end %>
+<% else %>
+	<table class="table">
+		<thead>
+			<tr>
+				<th> حوزه </th>
+				<th> نمره </th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @exam_answer.exam.subject.each do |key,array| %>
+				<tr>
+					<td> <%= key %> </td>
+					<td> <%= @exam_answer.get_score array[1..-2].split(',').map { |i| i.to_i - 6 } %> </td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

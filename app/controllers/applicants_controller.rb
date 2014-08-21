@@ -7,8 +7,12 @@ class ApplicantsController < ApplicationController
 	end
 
 	def submit_answer
+		puts "==========================="
 		puts params[:answer]
 		puts params[:answer].keys.count
+		puts "============================"
+
+		
 		exam_answer = current_user.exam_answers.where(id: params[:exam_answer_id]).first
 		return redirect_to profile_path, flash: { error: 'آزمون یافت نشد!' } unless exam_answer
 		return redirect_to profile_path, flash: { error: 'قبلا به این آزمون پاسخ داده‌اید' } if exam_answer.status

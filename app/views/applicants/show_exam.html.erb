@@ -1,15 +1,28 @@
+<script type="text/javascript">
+	function validate_form()
+	{
+		var radioButtons = $('form input[type="radio"]');
+		for(i = 0; i < radioButtons.length-1; i += 2) {
+			if(radioButtons[i].checked == false && radioButtons[i+1].checked == false) {
+				alert("سوال شماره‌ی "+(Math.ceil(i/2)+1).toString()+" خالی است. پرش کنید.");
+				return false;
+			}
+		}
+		return true;
+	}
+</script>
 <% if @exam_answer.status %>
 <p>
 	قبلا به این آزمون پاسخ داده‌اید!
 </p>
 <% else %>
-<%= simple_form_for :answer, url: submit_answer_path(@exam_answer), html: {class: 'form-horizontal', role: 'form'} do |f| %>
+<%= simple_form_for :answer, url: submit_answer_path(@exam_answer), html: {class: 'form-horizontal', role: 'form', onsubmit: "return validate_form();"} do |f| %>
 <div class="contrainer exam">
 	<% @exam_answer.exam.questions.each_with_index do |question,index| %>
 	<% choices = question.choices %>
 	<p>
 		<fieldset id="question<%=index%>">
-			<legend><%= question.content%></legend>
+			<legend><b><%= index+1 %>. </b><%= question.content%></legend>
 			<%= f.collection_radio_buttons(
 				"#{index}" ,choices.each_with_index.map { |choice,index| [index,choice.content]}, :first, :last
 				) do |b|
@@ -18,8 +31,9 @@
 			%>
 		</fieldset>
 	</p>
+	<br>
 	<% end %>
 </div>
-<%= f.submit :button %>
+<%= f.submit 'ثبت', class: 'btn btn-success' %>
 <% end %>
 <% end %>
