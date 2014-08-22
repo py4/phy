@@ -1,4 +1,14 @@
-<script type="text/javascript">
+<% if @exam_answer.status %>
+<p>
+	قبلا به این آزمون پاسخ داده‌اید!
+</p>
+<% else %>
+<%= simple_form_for :answer, url: submit_answer_path(@exam_answer), html: {class: 'form-horizontal', role: 'form', onsubmit: "return validate_form();"} do |f| %>
+<div class="contrainer exam">
+	<% if @exam_answer.exam.name == 'آزمون هالند' %>
+	<%= render partial: 'holand', locals: {f: f} %>
+	<% else %> 
+	<script type="text/javascript">
 	function validate_form()
 	{
 		var radioButtons = $('form input[type="radio"]');
@@ -11,13 +21,7 @@
 		return true;
 	}
 </script>
-<% if @exam_answer.status %>
-<p>
-	قبلا به این آزمون پاسخ داده‌اید!
-</p>
-<% else %>
-<%= simple_form_for :answer, url: submit_answer_path(@exam_answer), html: {class: 'form-horizontal', role: 'form', onsubmit: "return validate_form();"} do |f| %>
-<div class="contrainer exam">
+
 	<% @exam_answer.exam.questions.each_with_index do |question,index| %>
 	<% choices = question.choices %>
 	<p>
@@ -32,6 +36,7 @@
 		</fieldset>
 	</p>
 	<br>
+	<% end %>
 	<% end %>
 </div>
 <%= f.submit 'ثبت', class: 'btn btn-success' %>

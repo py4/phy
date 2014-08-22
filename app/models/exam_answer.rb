@@ -2,6 +2,14 @@ class ExamAnswer < ActiveRecord::Base
   belongs_to :exam
   belongs_to :user
   has_many :answers, dependent: :destroy
+  store_accessor :scores
+
+  after_create :set_scores
+
+  def set_scores
+  	update_attributes scores: {}
+  end
+
 
   def get_score keys
   	puts "keys: #{keys}"

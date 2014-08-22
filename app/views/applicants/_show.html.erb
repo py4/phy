@@ -9,3 +9,32 @@
 		<%= render partial: 'applicants/adviser_message', locals: {applicant: current_user} %>
 	</div>
 </div>
+
+<% exam = current_user.exam_answers.to_a.find { |ea| ea.exam.name == 'آزمون هالند' and ea.status} %>
+<% if exam %>
+	<% hash = current_user.get_hash exam %>
+	<div class="row">
+		<h1> نتایج بررسی شغلی </h1>
+		<div class="col-md-3">
+			<h3> تیپ شخصیتی </h3>
+			<p>
+				<%= hash[:definition] %>
+			</p>
+			<p>
+				<%= hash[:desc] %>
+			</p>
+		</div>
+		<div class="col-md-3">
+			<h3> صفات شخصیتی </h3>
+			<p>
+				<%= hash[:attributes] %>
+			</p>
+		</div>
+		<div class="col-md-3">
+			<h3> شغل‌های پیشنهادی </h3>
+			<p>
+				<%= hash[:appro_jobs] %>
+			</p>
+		</div>
+	</div>
+<% end %>

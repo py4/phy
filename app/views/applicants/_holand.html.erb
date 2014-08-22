@@ -1,0 +1,72 @@
+<script type="text/javascript">
+	function validate_form()
+	{
+		var radioButtons = $('.question_section2 input[type="radio"]');
+		for(i = 0; i < radioButtons.length-1; i += 7) {
+			var check = false;
+			for(j = 0; j < 7; j++) {
+				if(radioButtons[i+j].checked == true)
+				{
+					check = true;
+					break;
+				}
+				
+			}
+			if(check)
+				continue;
+
+			alert("سوال شماره‌ی "+(Math.ceil(i/7)+1).toString()+"از سوال آخر ( خودسنجی‌ها) خالی است. پرش کنید.");
+			return false;
+		}
+		return true;
+	}
+</script>
+
+
+
+<% HOLAND[:t1].keys.each do |q_index| %>
+	<h3> <%= HOLAND[:t1][q_index][:title] %> </h3>
+	<% HOLAND[:t1][q_index][:questions].each do |sq_index, q_array| %>
+		<div class="question_section">
+		<%= f.input "t1-#{q_index}-#{sq_index}", label: "قسمت #{sq_index+1}" do %>
+			<% q_array.each_with_index do |q_content,i| %>
+				<div class="row">
+					<div class="col-md-3">
+						<%= q_content %>
+					</div>
+					<div class="col-md-2">
+						<%= f.input "t1-#{q_index}-#{sq_index}-#{i}", as: :boolean, label: false %>
+					</div>
+				</div>
+			<br>
+			<% end %>
+    	<% end %>
+    	</div>
+    	<br><br><br><br>
+	<% end %>
+<% end %>
+
+<h3> <%= HOLAND[:t2][:title] %> </h3>
+<% (0..1).each do |q_i| %>
+	<div class="question_section2">
+		<%= f.input "t2-#{q_i}", label: "قسمت #{q_i+1}" do %>
+			<% HOLAND[:t2][q_i].each_with_index do |q_content, i| %>
+				<div class="row">
+					<div class="col-md-3">
+						<%= q_content %>
+					</div>
+					<div class="col-md-2">
+						<%= f.collection_radio_buttons(
+				"t2-#{q_i}-#{i}" ,(0..6).to_a.each_with_index.map { |c,index| [index+1,(c+1).to_s]}, :first, :last
+				) do |b|
+				b.label { b.radio_button + b.text}
+			end
+			%>
+						
+					</div>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+	<br><br><br><br>
+<% end %>

@@ -1,6 +1,7 @@
 Exam.destroy_all
+Exam.create! name: 'آزمون هالند'
 Dir.foreach('config/exams') do |item|
-	next if item == '.' or item == '..'
+	next if item == '.' or item == '..' or item == 'holand'
 
 	lines = File.readlines('config/exams/'+item)
 	exam = Exam.create! name: lines[0].strip, subject: {}
@@ -25,6 +26,7 @@ Dir.foreach('config/subjects') do |item|
 
 	lines = File.readlines('config/subjects/'+item)
 	exam = Exam.find_by(name: lines[0].strip)
+	puts "this fucking is nil: #{lines[0].strip}" unless exam
 	subject = {}
 	lines[1..-1].each do |line|
 		words = line.split('-')

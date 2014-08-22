@@ -62,4 +62,18 @@ class User < ActiveRecord::Base
     end
     return Exam.pluck(:name) - names
   end
+
+  def get_hash exam_answer
+    best_key = nil
+    best_value = 0
+
+    exam_answer.scores.each do |key,value|
+      if value.to_i > best_value
+        best_key = key
+        best_value = value.to_i
+      end
+    end
+
+    return JOBS[best_key]
+  end
 end
