@@ -11,12 +11,22 @@
 	<script type="text/javascript">
 	function validate_form()
 	{
-		var radioButtons = $('form input[type="radio"]');
-		for(i = 0; i < radioButtons.length-1; i += 2) {
-			if(radioButtons[i].checked == false && radioButtons[i+1].checked == false) {
-				alert("سوال شماره‌ی "+(Math.ceil(i/2)+1).toString()+" خالی است. پرش کنید.");
-				return false;
+		var radioButtons = $('input[type="radio"]');
+		for(i = 0; i < radioButtons.length-1; i += <%= @exam_answer.exam.questions.first.choices.size %>) {
+			var check = false;
+			for(j = 0; j < <%= @exam_answer.exam.questions.first.choices.size %>; j++) {
+				if(radioButtons[i+j].checked == true)
+				{
+					check = true;
+					break;
+				}
+				
 			}
+			if(check)
+				continue;
+
+			alert("سوال شماره‌ی "+(Math.ceil(i/<%=@exam_answer.exam.questions.first.choices.size %>)+1).toString()+"خالی است. پرش کنید.");
+			return false;
 		}
 		return true;
 	}
@@ -24,6 +34,28 @@
 
 	<% @exam_answer.exam.questions.each_with_index do |question,index| %>
 	<% choices = question.choices %>
+	<% if @exam_answer.exam.name == 'آزمون رضایت شغلی' %>
+		<% case index %>
+			<% when 0 %>
+				<h3> شغل شما </h3>
+				<br>
+			<% when 22 %>
+				<h3> مسئول مستقیم </h3>
+				<br>
+			<% when 36 %>
+				<h3> همکار </h3>
+				<br>
+			<% when 47 %>
+				<h3> ارتقا </h3>
+				<br>
+			<% when 54 %>
+				<h3> حقوق و مزایا </h3>
+				<br>
+			<% when 63 %>
+				<h3> شرایط کار در محیط فعلی </h3>
+				<br>
+		<% end %>
+	<% end %>
 	<p>
 		<fieldset id="question<%=index%>">
 			<legend><b><%= index+1 %>. </b><%= question.content%></legend>

@@ -18,7 +18,16 @@
 			<% @exam_answer.exam.subject.each do |key,array| %>
 				<tr>
 					<td> <%= key %> </td>
-					<td> <%= @exam_answer.get_score array[1..-2].split(',').map { |i| i.to_i - 6 } %> </td>
+					<% if @exam_answer.exam.name == 'مصاحبه' %>
+						<td> <%= @exam_answer.get_score array[1..-2].split(',').map { |i| i.to_i - 6 } %> </td>
+					<% else %>
+						<% arr = array[1..-2].split(',').map { |i| i.to_i - 1 } %>
+						<% if @exam_answer.exam.name == 'آزمون رضایت شغلی' %>	
+							<td> <%= (@exam_answer.get_score  arr) / arr.size.to_f %> </td>
+						<% else %>
+							<td> <%= (@exam_answer.get_score  arr) %> </td>
+						<% end %>
+					<% end %>
 				</tr>
 			<% end %>
 		</tbody>
